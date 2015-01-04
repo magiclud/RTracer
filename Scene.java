@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Scene implements Shape {
 
 	private Camera camera;
-	private ArrayList<Vector> lights;
-	private ArrayList<Sphere> obiects;
+	private ArrayList<Vector> lights = new ArrayList<Vector>();
+	private ArrayList<Sphere> obiects = new ArrayList<Sphere>();
 	private Vector eyeVector;
 	private Vector vpRight;
 	private Vector vpUp;

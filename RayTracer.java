@@ -46,8 +46,14 @@ public class RayTracer  extends JPanel {
 	   @Override
 	   public void paintComponent(Graphics g) {
 	      super.paintComponent(g);    // paint background
+	      Shape shape = setUp(new Scene(), height, width);
 	      setBackground(Color.WHITE);
 	      Graphics2D g2d = (Graphics2D)g;
+	
+	//      g2d.fill(shape);
+//	        g2d.setColor(getBackground());
+//	        g2d.fillRect(0, 0,(int) width,(int) height);
+	     
 //	      g2d.
 //	 
 //	      // Save the current transform of the graphics contexts.
@@ -113,10 +119,11 @@ public class RayTracer  extends JPanel {
 		p2.setZ(p0.getZ()+ Math.cos(beta)*pR2*0.5);
 	}
 
-	private static void setUp(Scene scene, double height, double width) {
+	private static Scene setUp(Scene scene, double height, double width) {
 		scene.setCamera(new Camera(new Vector(0,-20,5), new Vector(0,0,0),30));
 		//scene.addLight(new Vector(-30,10,0));
-		scene.addLight(new Vector(10,0,0));
+		Vector nn = new Vector(10,0,0);
+		scene.addLight(nn);
 		scene.addObiect(new Sphere(0,0,0, 20,20,255, 0.5,0.7,0.2, 1.0));//planeta
 		scene.addObiect(new Sphere(0,0,0, 255,255,0, 0.1,0.9,0.2, 0.5));//duzy Ksiezyc
 		scene.addObiect(new Sphere(0,0,0, 255,0,0, 0.2,0.7,0.2, 0.2));//maly Ksiezyc
@@ -142,6 +149,7 @@ public class RayTracer  extends JPanel {
 		scene.setPixelDh(scene.getCameraHeight()/(height-1));
 		scene.setNoObjects(scene.getObiects().size()); 
 		scene.setNoLights(scene.getLights().size());
+		return scene;
 	}
 
  
