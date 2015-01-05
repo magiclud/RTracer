@@ -78,6 +78,9 @@ public class Scene implements Shape {
 		this.vpUp=vpUp;
 		
 	}
+	public Vector getVpUp() {
+		return vpUp;
+	}
 
 	public void setAngleRadians(double d) {
 		this.angleRadians =d;

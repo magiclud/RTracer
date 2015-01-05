@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -49,6 +50,9 @@ public class RayTracer  extends JPanel {
 	      Shape shape = setUp(new Scene(), height, width);
 	      setBackground(Color.WHITE);
 	      Graphics2D g2d = (Graphics2D)g;
+	      g2d.drawString("This is my custom Panel!",10,20);
+	        g2d.setColor(Color.RED);
+	        g2d.fillRect(24,24,24,24);
 	
 	//      g2d.fill(shape);
 //	        g2d.setColor(getBackground());
@@ -104,9 +108,60 @@ public class RayTracer  extends JPanel {
 	//TODO//RENDEROWANIE SCENY !!!!!!!!!!!!!
 	private static void render(Scene scene, double height, double width) {
 		//rozpakowuję scenę, aby wygodniej odwoływać się do obiektów
+		Vector eyeVector = scene.getEyeVector();
+		Vector vpRight = scene.getVpRight();
+		Vector vpUp = scene.getVpUp();
+		double halfWidth = scene.getHalfWidth(); 
+		double halfHeight = scene.getHalfHeight(); 
+		double pixelDw = scene.getPixelDw();
+		double pixelDh = scene.getPixelDh();
+		
+		Ray ray = new Ray();
+		ray.setPoint(scene.getCamera().getPoint());//początek promienia
+		
+		for(int x =0; x<width; x++){
+			//przeliczmy pixel znormalizowany od kamery do sceny
+			
+			Vector	xComponent = vpRight.scale(x*pixelDw-halfWidth); 
+			for(int y=0; y<height; y++){
+				Vector yComponent = vpUp.scale(y*pixelDh-halfHeight);
+				Vector pom = eyeVector.addThreeVec(xComponent, yComponent);
+				ray.setVector(pom.normalize(pom));
+				//Vector color = trace(ray,scene,0);
+				int index = (x+y*(int)width)*4;
+//				data[index]= color.getX();
+//				data[index]
+				//TODO!!!!!!!!!!!!!!!!!!data.data ? 
+			}
+		}
 		
 		
 	}
+//	private static Vector trace(Ray ray, Scene scene, int depth) {
+//		if(depth<=3){
+//			//first = intersectScene()// tu ma być array 
+//			ArrayList first = intersectScene(null, ray, scene);//zwroci array [odleglosc, obiekt]
+//			if(first.get(0)== Infinity){
+//				return new Vector(0,0,0);//tlo jest czarne
+//			}
+//			double distance = (double) first.get(0);
+//			double object = (double) first.get(0);
+//			Vector iPoint = ray.getPoint().add(ray.getVector().scale(distance));
+//			return phong(ray, scene, object, iPoint,iPoint.sphereNormal(object, iPoint),depth );
+//		}
+//		return
+//				null;
+//	}
+	private static ArrayList intersectScene(Object object, Ray ray, Scene scene) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+//	private Vector phong(Ray ray, Scene scene, ){
+	//	return null;
+		
+		
+//	}
+	
 	private static void ustawPlanety(Scene scene) {
 		Vector p0 = ((Sphere) scene.getObiects().get(0)).getPoint();
 		Vector p1 =  ((Sphere) scene.getObiects().get(1)).getPoint();

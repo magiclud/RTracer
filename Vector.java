@@ -28,7 +28,7 @@ public class Vector {
 				* b.z, this.x * b.y - this.y * b.x);
 	}
 
-	private Vector scale(double b) {
+	Vector scale(double b) {
 		return new Vector(this.x * b, this.y * b, this.z * b);
 	}
 
@@ -64,11 +64,11 @@ public class Vector {
 		this.z = z;
 	}
 
-	private Vector add(Vector b) {
+	Vector add(Vector b) {
 		return new Vector(this.x + b.x, this.y + b.y, this.z + b.z);
 	}
 
-	private Vector addThreeVec(Vector b, Vector c) {
+	Vector addThreeVec(Vector b, Vector c) {
 		return new Vector(this.x + b.x + c.x, this.y + b.y + c.y, this.z + b.z
 				+ c.z);
 	}
