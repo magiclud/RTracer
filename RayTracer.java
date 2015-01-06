@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -27,7 +28,7 @@ public class RayTracer  extends JPanel {
 	static double height=640*rozmiar;
 	static double width = 480*rozmiar;
 	public static final String TITLE = "Ray Tracer";
-	  Image screen;
+	BufferedImage image;
 	/**
 	 * 
 	 */
@@ -46,45 +47,15 @@ public class RayTracer  extends JPanel {
 	 /** Custom painting codes on this JPanel */
 	   @Override
 	   public void paintComponent(Graphics g) {
-	      super.paintComponent(g);    // paint background
-	      Shape shape = setUp(new Scene(), height, width);
-	      setBackground(Color.WHITE);
+	      super.paintComponent(g); 
 	      Graphics2D g2d = (Graphics2D)g;
-	      g2d.drawString("This is my custom Panel!",10,20);
-	        g2d.setColor(Color.RED);
-	        g2d.fillRect(24,24,24,24);
-	
-	//      g2d.fill(shape);
-//	        g2d.setColor(getBackground());
-//	        g2d.fillRect(0, 0,(int) width,(int) height);
-	     
-//	      g2d.
-//	 
-//	      // Save the current transform of the graphics contexts.
-//	      AffineTransform saveTransform = g2d.getTransform();
-//	      // Create a identity affine transform, and apply to the Graphics2D context
-//	      AffineTransform identity = new AffineTransform();
-//	      g2d.setTransform(identity);
-//	 
-//	      // Paint Shape (with identity transform), centered at (0, 0) as defined.
-//	      g2d.setColor(Color.GREEN);
-//	      g2d.fill(shape);
-//	      // Translate to the initial (x, y) position, scale, and paint
-//	      g2d.translate(x, y);
-//	      g2d.scale(1.2, 1.2);
-//	      g2d.fill(shape);
-//	 
-//	      // Try more transforms
-//	      for (int i = 0; i < 5; ++i) {
-//	         g2d.translate(50.0, 5.0);  // translates by (50, 5)
-//	         g2d.setColor(Color.BLUE);
-//	         g2d.fill(shape);
-//	         g2d.rotate(Math.toRadians(15.0)); // rotates about transformed origin
-//	         g2d.setColor(Color.RED);
-//	         g2d.fill(shape);
-//	      }
-//	      // Restore original transform before returning
-//	      g2d.setTransform(saveTransform);
+	  /*    BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+	      for(int x = 0; x < 800; ++x) {
+	    	  for(int y = 0; y < 600; ++y) {
+	    		  image.setRGB(x, y, new Color(x%255,y%255,(x+y)%255).getRGB());
+	    	  }
+	      } */
+	     g2d.drawImage(image, null, null);
 	   }
 	 
 	/**
@@ -108,7 +79,7 @@ public class RayTracer  extends JPanel {
 	//TODO//RENDEROWANIE SCENY !!!!!!!!!!!!!
 	private static void render(Scene scene, double height, double width) {
 		//rozpakowuję scenę, aby wygodniej odwoływać się do obiektów
-		Vector eyeVector = scene.getEyeVector();
+	/*	Vector eyeVector = scene.getEyeVector();
 		Vector vpRight = scene.getVpRight();
 		Vector vpUp = scene.getVpUp();
 		double halfWidth = scene.getHalfWidth(); 
@@ -133,34 +104,11 @@ public class RayTracer  extends JPanel {
 //				data[index]
 				//TODO!!!!!!!!!!!!!!!!!!data.data ? 
 			}
-		}
-		
+		}*/
 		
 	}
-//	private static Vector trace(Ray ray, Scene scene, int depth) {
-//		if(depth<=3){
-//			//first = intersectScene()// tu ma być array 
-//			ArrayList first = intersectScene(null, ray, scene);//zwroci array [odleglosc, obiekt]
-//			if(first.get(0)== Infinity){
-//				return new Vector(0,0,0);//tlo jest czarne
-//			}
-//			double distance = (double) first.get(0);
-//			double object = (double) first.get(0);
-//			Vector iPoint = ray.getPoint().add(ray.getVector().scale(distance));
-//			return phong(ray, scene, object, iPoint,iPoint.sphereNormal(object, iPoint),depth );
-//		}
-//		return
-//				null;
-//	}
-	private static ArrayList intersectScene(Object object, Ray ray, Scene scene) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-//	private Vector phong(Ray ray, Scene scene, ){
-	//	return null;
-		
-		
-//	}
+
+
 	
 	private static void ustawPlanety(Scene scene) {
 		Vector p0 = ((Sphere) scene.getObiects().get(0)).getPoint();
@@ -182,9 +130,10 @@ public class RayTracer  extends JPanel {
 		scene.addObiect(new Sphere(0,0,0, 20,20,255, 0.5,0.7,0.2, 1.0));//planeta
 		scene.addObiect(new Sphere(0,0,0, 255,255,0, 0.1,0.9,0.2, 0.5));//duzy Ksiezyc
 		scene.addObiect(new Sphere(0,0,0, 255,0,0, 0.2,0.7,0.2, 0.2));//maly Ksiezyc
+		return scene;
 
 		/**wyznaczam reper kamery**/
-		Vector pom = scene.getCamera().getPoint2().subtract(scene.getCamera().getPoint());
+	/*	Vector pom = scene.getCamera().getPoint2().subtract(scene.getCamera().getPoint());
 	//	pom.subtract(scene.getCamera().getPoint()); 
 		pom = pom.normalize(pom);
 		scene.setEyeVector(pom);
@@ -194,7 +143,7 @@ public class RayTracer  extends JPanel {
 		scene.setVpUp(pom);
 		/*************************/
 		
-		scene.setAngleRadians(Math.PI*(scene.getCamera().getAngle()/2)/180);//zmiana stopni na radiany
+/*		scene.setAngleRadians(Math.PI*(scene.getCamera().getAngle()/2)/180);//zmiana stopni na radiany
 		scene.setAspectRadio(height/width);
 		scene.setHalfWidth(Math.tan(scene.getAngleRadians()));
 		scene.setHalfHeight(scene.getAspectRadio()*scene.getHalfWidth());
@@ -204,7 +153,7 @@ public class RayTracer  extends JPanel {
 		scene.setPixelDh(scene.getCameraHeight()/(height-1));
 		scene.setNoObjects(scene.getObiects().size()); 
 		scene.setNoLights(scene.getLights().size());
-		return scene;
+		return scene;*/
 	}
 
  

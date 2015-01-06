@@ -1,20 +1,26 @@
 
 public class Ray {
 
-	public Vector point;
-	public Vector vector;
+	private Vector point;
+	private Vector direction;
 	
+	public Ray (){
+		point = new Vector (0,0,0);
+		direction = new Vector(1,1,1);
+		new Ray(point, direction);
+	}
+    
+    public Ray (Vector point, Vector direction){
+    	this.point = point;
+    	this.direction = direction;
+    }
 	public Vector getPoint() {
 		return point;
 	}
-	public void setPoint(Vector point) {
-		this.point = point;
+
+	public Vector getDirection() {
+		return direction;
 	}
-	public Vector getVector() {
-		return vector;
-	}
-	public void setVector(Vector vector) {
-		this.vector = vector;
-	}
+
 
 }

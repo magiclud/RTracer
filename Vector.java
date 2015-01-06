@@ -36,8 +36,8 @@ public class Vector {
 		return Math.sqrt(this.dotProduct(this));
 	}
 
-	Vector normalize(Vector A) {
-		return scale(1 / A.lengthVector());
+	Vector normalize() {
+		return scale(1 / this.lengthVector());
 	}
 
 	public double getX() {
@@ -87,8 +87,8 @@ public class Vector {
 	}
 
 	private double sphereIntersection(Sphere sphere, Ray ray) {
-		Vector ec = sphere.getPoint().subtract(ray.point);
-		double v = ec.dotProduct(ray.vector);
+		Vector ec = sphere.getPoint().subtract(ray.getPoint());
+		double v = ec.dotProduct(ray.getDirection());
 		double d2 = ec.dotProduct(ec);
 		double delta = sphere.rSQuare - d2 + v * v;
 		
@@ -107,6 +107,10 @@ public class Vector {
 
 	public String toString() {
 		return new String("[" + x + ", " + y + ", " + z + "]");
+	}
+
+	public static Vector eZ() {
+		return new Vector(0,0,1);
 	}
 
 }
