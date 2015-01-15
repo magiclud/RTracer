@@ -1,34 +1,34 @@
 import java.awt.Color;
-import java.util.Vector;
 
-public class SceneObject {
-	private int inf = 2147483647;
-
-	/*
-	 * public: SceneElement(); virtual double intersectWith(Ray& ray); virtual
-	 * ~SceneElement(); static const int INF;
-	 * 
-	 * bool isLambert(); int getLambert(); bool isSpecular(); sf::Color
-	 * elemColor(); virtual VectorR3 normal(PointR3 pos);
-	 */
+public class SceneObject implements SceneElement{
 
 	public SceneObject() {
 
 	}
-
-	boolean isLambert() {
+	@Override
+	public boolean isLambert() {
 		return true;
 	}
-
-	int getLambert() {
+	@Override
+	public int getLambert() {
 		return 1;
 	}
 
-	Color elemColor() {
+	@Override
+	public Color elemColor() {
 		return Color.red;
 	}
 
-	Vector normal(Vector pos) {
+	@Override
+	public double intersectWith(Ray ray) {
+		// TODO Auto-generated method stub
+		return inf;
+	}
+
+
+	@Override
+	public Vector normal(Vector pos) {
+		// TODO Auto-generated method stub
 		return new Vector();
 	}
 

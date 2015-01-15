@@ -35,13 +35,12 @@ public class RayTracer  extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public RayTracer(){
-		
+	
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT));
-		
-		Scene scene = new Scene();
-		setUp(scene,height, width);
-		ustawPlanety(scene);
-		render(scene,height, width);
+	
+//		setUp(scene,height, width);
+//		ustawPlanety(scene);
+//		render(scene,height, width);
 		
 	}
 	 /** Custom painting codes on this JPanel */
@@ -49,13 +48,26 @@ public class RayTracer  extends JPanel {
 	   public void paintComponent(Graphics g) {
 	      super.paintComponent(g); 
 	      Graphics2D g2d = (Graphics2D)g;
-	  /*    BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+	     BufferedImage image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 	      for(int x = 0; x < 800; ++x) {
 	    	  for(int y = 0; y < 600; ++y) {
-	    		  image.setRGB(x, y, new Color(x%255,y%255,(x+y)%255).getRGB());
+	    		  image.setRGB(x, y, new Color(100,100,100).getRGB());
 	    	  }
-	      } */
+	      } 
 	     g2d.drawImage(image, null, null);
+	     
+	     
+	 	Camera camera =new Camera(new Vector(0,0,0),new Vector(0,100,0), 45);
+		camera.setCameraLens(800, 600);
+	Scene scene = new Scene(camera, image);//czy null ? //TODO
+	SceneElement s1 = new Sphere(new Vector(0,10,0),3);
+	scene.addSceneElement(s1);
+	Light l1 = new Light(new Vector(0,0,0));
+	scene.addSceneLight(l1);
+	image= scene.render();
+	
+	g2d.drawImage(image, null, null);
+	
 	   }
 	 
 	/**
@@ -110,29 +122,29 @@ public class RayTracer  extends JPanel {
 
 
 	
-	private static void ustawPlanety(Scene scene) {
-		Vector p0 = ((Sphere) scene.getObiects().get(0)).getPoint();
-		Vector p1 =  ((Sphere) scene.getObiects().get(1)).getPoint();
-		Vector p2 =  ((Sphere) scene.getObiects().get(2)).getPoint();
-		p1.setX(Math.sin(alpha)*pR1 +p0.getX()) ;
-		p1.setY(Math.cos(alpha)*pR1 +p0.getY()) ;
-		p1.setZ(p0.getZ());
-		p2.setX(p1.getX()+ Math.sin(beta)*pR2);
-		p2.setY(p1.getY()+ Math.cos(beta)*pR2);
-		p2.setZ(p0.getZ()+ Math.cos(beta)*pR2*0.5);
-	}
-
-	private static Scene setUp(Scene scene, double height, double width) {
-		scene.setCamera(new Camera(new Vector(0,-20,5), new Vector(0,0,0),30));
-		//scene.addLight(new Vector(-30,10,0));
-		Vector nn = new Vector(10,0,0);
-		scene.addLight(nn);
-		scene.addObiect(new Sphere(0,0,0, 20,20,255, 0.5,0.7,0.2, 1.0));//planeta
-		scene.addObiect(new Sphere(0,0,0, 255,255,0, 0.1,0.9,0.2, 0.5));//duzy Ksiezyc
-		scene.addObiect(new Sphere(0,0,0, 255,0,0, 0.2,0.7,0.2, 0.2));//maly Ksiezyc
-		return scene;
-
-		/**wyznaczam reper kamery**/
+//	private static void ustawPlanety(Scene scene) {
+//		Vector p0 = ((Sphere) scene.getObiects().get(0)).getPoint();
+//		Vector p1 =  ((Sphere) scene.getObiects().get(1)).getPoint();
+//		Vector p2 =  ((Sphere) scene.getObiects().get(2)).getPoint();
+//		p1.setX(Math.sin(alpha)*pR1 +p0.getX()) ;
+//		p1.setY(Math.cos(alpha)*pR1 +p0.getY()) ;
+//		p1.setZ(p0.getZ());
+//		p2.setX(p1.getX()+ Math.sin(beta)*pR2);
+//		p2.setY(p1.getY()+ Math.cos(beta)*pR2);
+//		p2.setZ(p0.getZ()+ Math.cos(beta)*pR2*0.5);
+//	}
+//
+//	private static Scene setUp(Scene scene, double height, double width) {
+//		scene.setCamera(new Camera(new Vector(0,-20,5), new Vector(0,0,0),30));
+//		//scene.addLight(new Vector(-30,10,0));
+//		Vector nn = new Vector(10,0,0);
+//		scene.addLight(nn);
+//		scene.addObiect(new Sphere(0,0,0, 20,20,255, 0.5,0.7,0.2, 1.0));//planeta
+//		scene.addObiect(new Sphere(0,0,0, 255,255,0, 0.1,0.9,0.2, 0.5));//duzy Ksiezyc
+//		scene.addObiect(new Sphere(0,0,0, 255,0,0, 0.2,0.7,0.2, 0.2));//maly Ksiezyc
+//		return scene;
+//
+//		/**wyznaczam reper kamery**/
 	/*	Vector pom = scene.getCamera().getPoint2().subtract(scene.getCamera().getPoint());
 	//	pom.subtract(scene.getCamera().getPoint()); 
 		pom = pom.normalize(pom);
@@ -183,4 +195,4 @@ public class RayTracer  extends JPanel {
 	
 	
 
-}
+

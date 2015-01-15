@@ -64,7 +64,7 @@ public class Camera {
 	
 /**************************88?????????????????????*****************/
 	//Ray CameraLens::throwRay(int x, int y) {
-	Ray getRay(int x, int y){
+	Ray throwRay(int x, int y){
 		   Vector xVect = getVpRight().scale( (x*cameraWidth) - halfWidth );
 		    Vector yVect = getVpUp().scale( (y*cameraHeight) - halfHeight );
 		    Vector direct = getEyeVector().addThreeVec(xVect,yVect);

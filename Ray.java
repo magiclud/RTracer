@@ -1,26 +1,30 @@
 
 public class Ray {
 
-	private Vector point;
+	private Vector startPoint;
 	private Vector direction;
 	
 	public Ray (){
-		point = new Vector (0,0,0);
+		startPoint = new Vector (0,0,0);
 		direction = new Vector(1,1,1);
-		new Ray(point, direction);
+		new Ray(startPoint, direction);
 	}
     
     public Ray (Vector point, Vector direction){
-    	this.point = point;
+    	this.startPoint = point;
     	this.direction = direction;
     }
+
 	public Vector getPoint() {
-		return point;
+		// TODO Auto-generated method stub
+		return startPoint;
 	}
 
 	public Vector getDirection() {
+		// TODO Auto-generated method stub
 		return direction;
 	}
+
 
 
 }

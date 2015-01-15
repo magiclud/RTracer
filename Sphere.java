@@ -1,75 +1,63 @@
 import java.awt.Color;
 
 
-public class Sphere {
 
-	private Vector point;
-	public double rInverse;
-	public double rSQuare;
-	private double radius;
-	private double spectacular;
-	private double ambient;
-	private String type;
-	private double lambert;
-	private Color color;
 
-	Sphere(double x, double y, double z, int cR, int cG, int cB, double lightS, double lightL, double lightA, double sRadius){
-		setType("sphere");
-		setPoint(new Vector(x,y,z));
-		color = new Color(cR,cG,cB);
-		setSpectacular(lightS);
-		setLambert(lightL);
-		setAmbient(lightA);
-		setRadius(sRadius);
-		this.rSQuare = sRadius * sRadius; 
-		this.rInverse = 1/sRadius;
+public class Sphere implements SceneElement{
+
+	private Vector pointCenter;
+	private double r;
+	private boolean lambert;
+	private boolean spectacular;
+	
+	public Sphere(){}
+	
+	Sphere(Vector pointCenter, double r){
+		this.pointCenter = pointCenter; 
+		this.r = r;
+	}
+	@Override
+	public Vector normal(Vector pos) {
+		Vector temp = pos.subtract(pointCenter);
+		temp.normalize();
+		return temp;
 	}
 
-	public Vector getPoint() {
-		return point;
+	private void move(){
+		pointCenter.setX(pointCenter.getX()+0.01);
+		pointCenter.setZ(pointCenter.getZ()+0.01);
+		
+	}
+	@Override
+	public double intersectWith(Ray ray) {
+		Vector eyeToCenter = pointCenter.subtract(ray.getPoint());
+		double v = eyeToCenter.dotProduct(ray.getDirection());
+		double ec_dot = eyeToCenter.dotProduct(eyeToCenter);
+		
+		double discriminant = r*r + v*v - ec_dot;
+		
+		if(discriminant < 0){
+			return inf;
+		}else{
+			return v - Math.sqrt(discriminant);
+		}
 	}
 
-	public void setPoint(Vector point) {
-		this.point = point;
+	@Override
+	public int getLambert() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public double getRadius() {
-		return radius;
+	@Override
+	public boolean isLambert() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
-
-	public double getSpectacular() {
-		return spectacular;
-	}
-
-	public void setSpectacular(double spectacular) {
-		this.spectacular = spectacular;
-	}
-
-	public double getAmbient() {
-		return ambient;
-	}
-
-	public void setAmbient(double ambient) {
-		this.ambient = ambient;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public Object getLambert() {
-		return lambert;
-	}
-
-	public void setLambert(double lambert) {
-		this.lambert = lambert;
+	@Override
+	public Color elemColor() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
