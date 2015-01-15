@@ -61,13 +61,12 @@ public class RayTracer  extends JPanel {
 		camera.setCameraLens(800, 600);
 	Scene scene = new Scene(camera, image);//czy null ? //TODO
 	SceneElement s1 = new Sphere(new Vector(0,10,0),3);
-	scene.addSceneElement(s1);
+	scene.addSceneElement(s1);//SceneElement or SceneObject
 	Light l1 = new Light(new Vector(0,0,0));
 	scene.addSceneLight(l1);
 	image= scene.render();
 	
 	g2d.drawImage(image, null, null);
-	
 	   }
 	 
 	/**

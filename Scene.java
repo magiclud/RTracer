@@ -9,7 +9,7 @@ public class Scene {
 
 	private Camera cameraLens;
 	BufferedImage image;
-	ArrayList<SceneElement> sceneElement = new ArrayList<SceneElement>();
+	ArrayList<SceneObject> sceneElement = new ArrayList<SceneObject>();
 	ArrayList<Light> sceneLight = new ArrayList<Light>();
 
 	Map<Color, Boolean> pair = new HashMap<Color, Boolean>();
@@ -154,7 +154,7 @@ public class Scene {
 	void addSceneLight(Light sl){
 		sceneLight.add(sl);
 	}
-	void addSceneElement(SceneElement s1){
+	void addSceneElement(SceneObject s1){
 		sceneElement.add(s1);
 	}
 //	class Closest{
